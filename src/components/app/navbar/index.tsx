@@ -52,7 +52,7 @@ export default function AppNavbar() {
                 </div>
                 <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                   <div className="flex flex-shrink-0 items-center">
-                    <img className="h-8 w-auto" src={Logo} alt="Logo" />
+                    <img className="h-6 w-auto" src={Logo} alt="Logo" />
                   </div>
                   <div className="hidden sm:ml-6 sm:block">
                     <div className="flex space-x-4">

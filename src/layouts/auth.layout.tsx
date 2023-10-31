@@ -1,4 +1,4 @@
-import Logo from "../assets/logo.svg";
+import LogoWhite from "../assets/logo-white.svg";
 import ParticleTop from "../assets/particle-top.png";
 import ParticleBottom from "../assets/particle-bottom.png";
 
@@ -14,7 +14,7 @@ export default function LayoutAuth({ children }: Props) {
       <div className="hidden max-h-screen md:flex h-screen">
         <div className="relative flex w-full flex-col items-center overflow-y-auto bg-primary bg-cover px-10 py-6 md:py-9">
           <a className="z-10 self-start" href="/">
-            <img src={Logo} />
+            <img src={LogoWhite} className="h-6" />
           </a>
           <img className="absolute left-0 top-0" src={ParticleTop} alt="particle" />
           <img className="absolute bottom-0 right-0" src={ParticleBottom} alt="particle" />
