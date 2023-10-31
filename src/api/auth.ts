@@ -1,7 +1,8 @@
 import axios from "axios";
 
-const BASE_URL = "https://biroperjalanan.datacakra.com/api";
-
-export function Login(username: string, password: string) {
-  return axios.post(`${BASE_URL}/login`, { username, password });
+export async function Login(email: string, password: string) {
+  return await axios.post("/api/authaccount/login", {
+    email,
+    password,
+  });
 }

@@ -1,15 +1,42 @@
-import { Button, Form, Input } from "antd";
+import { Alert, Button, Form, Input } from "antd";
 import LayoutAuth from "../../layouts/auth.layout";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { Login } from "../../api/auth";
+import Cookies from "js-cookie";
+import { useState } from "react";
 
 export default function LoginPage() {
+  const [loading, setLoading] = useState<boolean>(false);
+  const [alert, setAlert] = useState<string>("");
+  const navigate = useNavigate();
+
+  const handleCloseAlert = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    console.log(e, "I was closed.");
+    setAlert("");
+  };
+
   type FieldType = {
     email?: string;
     password?: string;
   };
 
-  const onFinish = (values: FieldType) => {
-    console.log("Success:", values);
+  const onFinish = async (values: FieldType) => {
+    setLoading(true);
+    try {
+      const response = await Login(values.email!, values.password!);
+
+      const data = response.data.data;
+      Cookies.set("name", data.Name, { expires: 1 });
+      Cookies.set("email", data.Email, { expires: 1 });
+      Cookies.set("token", data.Token, { expires: 1 });
+
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+      setAlert("Email or password is wrong!");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -23,6 +50,10 @@ export default function LoginPage() {
                 Welcome back to Indonesia’s #1 Job &amp; Mentoring Platform
               </div>
               <div className="mt-6 rounded-xl">
+                {alert && (
+                  <Alert className="mb-3" message={alert} type="error" showIcon closable onClose={handleCloseAlert} />
+                )}
+
                 <Form layout="vertical" initialValues={{ remember: true }} onFinish={onFinish}>
                   <Form.Item<FieldType>
                     name="email"
@@ -38,8 +69,10 @@ export default function LoginPage() {
                   >
                     <Input.Password size="large" placeholder="Enter your password" />
                   </Form.Item>
+
                   <Form.Item>
                     <Button
+                      loading={loading}
                       htmlType="submit"
                       className="flex h-[44px] items-center justify-center opacity-90 hover:opacity-100 bg-[#6913D8] text-white hover:bg-[#F4F2FF] hover:text-[#6913D8] focus:bg-[#6913D8] focus:text-white rounded-full text-[16px] border-none mt-2 w-full !text-xs font-bold md:!h-[44px] md:!text-base"
                     >
