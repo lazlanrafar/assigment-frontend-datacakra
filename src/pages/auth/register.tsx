@@ -2,8 +2,9 @@ import { Button, Form, Input } from "antd";
 import LayoutAuth from "../../layouts/auth.layout";
 import { Link } from "react-router-dom";
 
-export default function LoginPage() {
+export default function RegisterPage() {
   type FieldType = {
+    name?: string;
     email?: string;
     password?: string;
   };
@@ -18,12 +19,19 @@ export default function LoginPage() {
         <div className="h-full min-h-screen bg-white md:pl-[50px] md:pt-[44px]">
           <div className="flex justify-center">
             <div className="mb-8 mt-[50px] w-full max-w-[420px] px-5 leading-tight md:mt-[130px] md:px-0">
-              <h1 className="w-full text-xl font-bold leading-[130%]">Sign In</h1>
+              <h1 className="w-full text-xl font-bold leading-[130%]">Register</h1>
               <div className="mt-2 text-xs leading-[130%] font-light text-gray-500 md:text-sm">
                 Welcome back to Indonesia’s #1 Job &amp; Mentoring Platform
               </div>
               <div className="mt-6 rounded-xl">
                 <Form layout="vertical" initialValues={{ remember: true }} onFinish={onFinish}>
+                  <Form.Item<FieldType>
+                    name="name"
+                    label="Full Name"
+                    rules={[{ required: true, message: "Please input your full name!" }]}
+                  >
+                    <Input size="large" placeholder="Enter your name" />
+                  </Form.Item>
                   <Form.Item<FieldType>
                     name="email"
                     label="Email"
@@ -49,9 +57,9 @@ export default function LoginPage() {
 
                   <div className="mt-4 flex w-full items-center justify-center md:mt-6 md:justify-start">
                     <p className="flex items-center text-xs text-[#1a1a1a]">
-                      New to Deall?{" "}
-                      <Link to={"/register"} className="ml-1 text-xs font-bold text-primary">
-                        Sign Up
+                      Have an account?{" "}
+                      <Link to={"/login"} className="ml-1 text-xs font-bold text-primary">
+                        Sign In
                       </Link>
                     </p>
                   </div>
