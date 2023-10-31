@@ -7,6 +7,10 @@ export default {
         primary: "#782add",
       },
     },
+    container: {
+      center: true,
+      padding: "2rem",
+    },
   },
   plugins: [],
 };
