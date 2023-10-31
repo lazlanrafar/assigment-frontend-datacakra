@@ -1,5 +1,5 @@
-import React from "react";
+import { AppNavbar } from "../../components/app";
 
 export default function HomePage() {
-  return <div>HomePage</div>;
+  return <AppNavbar />;
 }

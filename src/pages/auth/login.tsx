@@ -31,6 +31,7 @@ export default function LoginPage() {
       Cookies.set("token", data.Token, { expires: 1 });
 
       navigate("/");
+      window.location.reload();
     } catch (error) {
       console.log(error);
       setAlert("Email or password is wrong!");
