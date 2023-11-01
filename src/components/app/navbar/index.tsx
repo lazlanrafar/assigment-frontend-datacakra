@@ -1,9 +1,8 @@
 import { Disclosure } from "@headlessui/react";
 import { CloseOutlined, MenuOutlined } from "@ant-design/icons";
 
-import ICStar from "../../../assets/ic-star.svg";
-import Logo from "../../../assets/logo.svg";
 import AppNavbarMenuProfile from "./menu-profile";
+import { ICStar, Logo } from "../../../assets";
 
 export default function AppNavbar() {
   const navigation = [
