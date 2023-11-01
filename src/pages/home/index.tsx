@@ -5,7 +5,7 @@ import { Tourist } from "../../types";
 import { CardTourist } from "../../components/molecules";
 import { Pagination } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
-import TouristForm from "../../components/organisms/tourist-form";
+import TouristFormModal from "../../components/organisms/tourist-form";
 
 export default function HomePage() {
   const [page, setPage] = useState<number>(1);
@@ -27,7 +27,7 @@ export default function HomePage() {
 
   return (
     <LayoutApp>
-      <TouristForm isModalOpen={modal} handleOk={handleOpenModal} handleCancel={handleCloseModal} />
+      <TouristFormModal isModalOpen={modal} handleOk={handleOpenModal} handleCancel={handleCloseModal} />
 
       <div className="">
         <h1 className="relative mx-auto text-center text-xl font-bold leading-[130%] text-black md:text-[32px] mb-10">
