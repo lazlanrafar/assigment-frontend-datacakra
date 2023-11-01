@@ -48,7 +48,7 @@ export default function LoginPage() {
             <div className="mb-8 mt-[50px] w-full max-w-[420px] px-5 leading-tight md:mt-[130px] md:px-0">
               <h1 className="w-full text-xl font-bold leading-[130%]">Sign In</h1>
               <div className="mt-2 text-xs leading-[130%] font-light text-gray-500 md:text-sm">
-                Welcome back to Indonesia’s #1 Job &amp; Mentoring Platform
+                Welcome back to Indonesia’s #1 Tourist Platform
               </div>
               <div className="mt-6 rounded-xl">
                 {alert && (
@@ -83,7 +83,7 @@ export default function LoginPage() {
 
                   <div className="mt-4 flex w-full items-center justify-center md:mt-6 md:justify-start">
                     <p className="flex items-center text-xs text-[#1a1a1a]">
-                      New to Deall?{" "}
+                      Don’t have an account?{" "}
                       <Link to={"/register"} className="ml-1 text-xs font-bold text-primary">
                         Sign Up
                       </Link>
