@@ -114,7 +114,7 @@ export default function HomePage() {
               />
             ))}
         </div>
-        <br />
+        <hr className="my-10" />
         <div className="flex justify-end">
           <Pagination
             defaultCurrent={page}

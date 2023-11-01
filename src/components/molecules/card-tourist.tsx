@@ -1,4 +1,4 @@
-import { Avatar, Card, Skeleton } from "antd";
+import { Avatar, Card, Skeleton, Tooltip } from "antd";
 import { Link } from "react-router-dom";
 import { ICAddress, ICDate } from "../../assets/icon";
 import moment from "moment";
@@ -21,8 +21,12 @@ export default function CardTourist(props: Props) {
     <Card
       className="shadow-sm hover:border-primary"
       actions={[
-        <EditOutlined key="edit" onClick={props.handleEdit} />,
-        <DeleteOutlined key="delete" onClick={props.handleDelete} />,
+        <Tooltip title="Edit Tourist">
+          <EditOutlined key="edit" onClick={props.handleEdit} />
+        </Tooltip>,
+        <Tooltip title="Delete Tourist">
+          <DeleteOutlined key="delete" onClick={props.handleDelete} />
+        </Tooltip>,
       ]}
     >
       <Skeleton loading={props.loading} avatar active>
