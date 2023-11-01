@@ -26,8 +26,7 @@ export default function LoginPage() {
       const response = await Login(values.email!, values.password!);
 
       const data = response.data.data;
-      Cookies.set("name", data.Name, { expires: 1 });
-      Cookies.set("email", data.Email, { expires: 1 });
+      Cookies.set("id", data.Id, { expires: 1 });
       Cookies.set("token", data.Token, { expires: 1 });
 
       navigate("/");
