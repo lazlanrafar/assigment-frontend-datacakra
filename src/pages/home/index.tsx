@@ -7,7 +7,7 @@ import { Pagination } from "antd";
 
 export default function HomePage() {
   const [page, setPage] = useState<number>(1);
-  const { data, refetch } = useGetAllTouristQuery({ page });
+  const { data, refetch, isLoading, isFetching } = useGetAllTouristQuery({ page });
 
   useEffect(() => {
     refetch();
@@ -27,6 +27,7 @@ export default function HomePage() {
                 tourist_email={item.tourist_email}
                 tourist_location={item.tourist_location}
                 createdat={item.createdat}
+                loading={isLoading || isFetching}
               />
             ))}
         </div>
