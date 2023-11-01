@@ -38,8 +38,20 @@ export const touristApi = createApi({
       }),
       invalidatesTags: ["touristTag"],
     }),
+    DeleteTourist: builds.mutation({
+      query: (id: string) => ({
+        url: `/Tourist/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["touristTag"],
+    }),
   }),
 });
 
-export const { useGetAllTouristQuery, useGetTouristByIdQuery, useCreateTouristMutation, useUpdateTouristMutation } =
-  touristApi;
+export const {
+  useGetAllTouristQuery,
+  useGetTouristByIdQuery,
+  useCreateTouristMutation,
+  useUpdateTouristMutation,
+  useDeleteTouristMutation,
+} = touristApi;

@@ -1,18 +1,23 @@
 import LayoutApp from "../../layouts/app.layout";
 import { useEffect, useState } from "react";
-import { useGetAllTouristQuery } from "../../store/services/tourist";
+import { useDeleteTouristMutation, useGetAllTouristQuery } from "../../store/services/tourist";
 import { Tourist } from "../../types";
 import { CardTourist } from "../../components/molecules";
-import { Pagination } from "antd";
+import { Pagination, message } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import TouristFormModal from "../../components/organisms/tourist-form";
+import Swal from "sweetalert2";
 
 export default function HomePage() {
+  const [messageApi, contextHolder] = message.useMessage();
+
   const [page, setPage] = useState<number>(1);
   const { data, refetch, isLoading, isFetching } = useGetAllTouristQuery({ page });
 
   const [modal, setModal] = useState<boolean>(false);
   const [idUpdate, setIdUpdate] = useState<string | undefined>(undefined);
+
+  const [DeleteTourist] = useDeleteTouristMutation();
 
   useEffect(() => {
     refetch();
@@ -32,8 +37,31 @@ export default function HomePage() {
     handleOpenModal();
   };
 
+  const handleTouristDelete = (id: string) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You will delete this tourist!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "No, keep it",
+      confirmButtonColor: "#782add",
+      cancelButtonColor: "#d33",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await DeleteTourist(id).then(() => {
+          messageApi.open({
+            type: "success",
+            content: `Success Delete tourist!`,
+          });
+        });
+      }
+    });
+  };
+
   return (
     <LayoutApp>
+      {contextHolder}
       <TouristFormModal id={idUpdate} isModalOpen={modal} handleOk={handleOpenModal} handleCancel={handleCloseModal} />
 
       <div className="">
@@ -82,6 +110,7 @@ export default function HomePage() {
                 createdat={item.createdat}
                 loading={isLoading || isFetching}
                 handleEdit={() => handleTouristEdit(item.id)}
+                handleDelete={() => handleTouristDelete(item.id)}
               />
             ))}
         </div>
