@@ -12,6 +12,7 @@ export default function HomePage() {
   const { data, refetch, isLoading, isFetching } = useGetAllTouristQuery({ page });
 
   const [modal, setModal] = useState<boolean>(false);
+  const [idUpdate, setIdUpdate] = useState<string | undefined>(undefined);
 
   useEffect(() => {
     refetch();
@@ -22,12 +23,18 @@ export default function HomePage() {
   };
 
   const handleCloseModal = () => {
+    setIdUpdate(undefined);
     setModal(false);
+  };
+
+  const handleTouristEdit = (id: string) => {
+    setIdUpdate(id);
+    handleOpenModal();
   };
 
   return (
     <LayoutApp>
-      <TouristFormModal isModalOpen={modal} handleOk={handleOpenModal} handleCancel={handleCloseModal} />
+      <TouristFormModal id={idUpdate} isModalOpen={modal} handleOk={handleOpenModal} handleCancel={handleCloseModal} />
 
       <div className="">
         <h1 className="relative mx-auto text-center text-xl font-bold leading-[130%] text-black md:text-[32px] mb-10">
@@ -74,6 +81,7 @@ export default function HomePage() {
                 tourist_location={item.tourist_location}
                 createdat={item.createdat}
                 loading={isLoading || isFetching}
+                handleEdit={() => handleTouristEdit(item.id)}
               />
             ))}
         </div>

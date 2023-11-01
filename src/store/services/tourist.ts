@@ -30,7 +30,16 @@ export const touristApi = createApi({
       }),
       invalidatesTags: ["touristTag"],
     }),
+    UpdateTourist: builds.mutation({
+      query: ({ id, body }: { id: string; body: TouristForm }) => ({
+        url: `/Tourist/${id}`,
+        method: "PUT",
+        body: body as TouristForm,
+      }),
+      invalidatesTags: ["touristTag"],
+    }),
   }),
 });
 
-export const { useGetAllTouristQuery, useGetTouristByIdQuery, useCreateTouristMutation } = touristApi;
+export const { useGetAllTouristQuery, useGetTouristByIdQuery, useCreateTouristMutation, useUpdateTouristMutation } =
+  touristApi;

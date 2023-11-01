@@ -12,13 +12,18 @@ interface Props {
   tourist_location: string;
   createdat: string;
   loading?: boolean;
+  handleEdit?: () => void;
+  handleDelete?: () => void;
 }
 
 export default function CardTourist(props: Props) {
   return (
     <Card
       className="shadow-sm hover:border-primary"
-      actions={[<EditOutlined key="edit" />, <DeleteOutlined key="delete" />]}
+      actions={[
+        <EditOutlined key="edit" onClick={props.handleEdit} />,
+        <DeleteOutlined key="delete" onClick={props.handleDelete} />,
+      ]}
     >
       <Skeleton loading={props.loading} avatar active>
         <Link to={`/tourist/${props.id}`} key={props.id}>

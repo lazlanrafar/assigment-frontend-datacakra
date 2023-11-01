@@ -1,35 +1,61 @@
 import { Button, Form, Input, Modal, message } from "antd";
 import TextArea from "antd/es/input/TextArea";
-import { useCreateTouristMutation } from "../../store/services/tourist";
-import { useState } from "react";
+import {
+  useCreateTouristMutation,
+  useGetTouristByIdQuery,
+  useUpdateTouristMutation,
+} from "../../store/services/tourist";
+import { useEffect, useState } from "react";
 import { TouristForm } from "../../types";
 
 interface Props {
   isModalOpen: boolean;
   handleOk: () => void;
   handleCancel: () => void;
+
+  id?: string;
 }
 
-export default function TouristFormModal({ isModalOpen, handleOk, handleCancel }: Props) {
+export default function TouristFormModal({ isModalOpen, handleOk, handleCancel, id }: Props) {
   const [form] = Form.useForm();
   const [messageApi, contextHolder] = message.useMessage();
-
   const [loading, setLoading] = useState<boolean>(false);
+
   const [CreateTourist] = useCreateTouristMutation();
+  const [UpdateTourist] = useUpdateTouristMutation();
 
   const handleCloseModal = () => {
     form.resetFields();
     handleCancel();
   };
 
+  const { data, refetch } = useGetTouristByIdQuery(id);
+
+  useEffect(() => {
+    if (!id) return;
+    refetch();
+  }, [id, refetch]);
+
+  useEffect(() => {
+    if (!data) return;
+    form.setFieldsValue({
+      tourist_name: data.tourist_name,
+      tourist_email: data.tourist_email,
+      tourist_location: data.tourist_location,
+    });
+  }, [data, form]);
+
   const onFinish = async (values: TouristForm) => {
     setLoading(true);
+    const TYPE = id ? "Update" : "Create";
+
     try {
-      await CreateTourist(values as TouristForm);
+      if (id) await UpdateTourist({ id, body: values as TouristForm });
+      else await CreateTourist(values as TouristForm);
 
       messageApi.open({
         type: "success",
-        content: "Tourist created successfully!",
+        content: `Success ${TYPE} Tourist!`,
       });
 
       handleCloseModal();
@@ -37,7 +63,7 @@ export default function TouristFormModal({ isModalOpen, handleOk, handleCancel }
       console.log(error);
       messageApi.open({
         type: "error",
-        content: "Failed to create Tourist!",
+        content: `Failed ${TYPE} Tourist!`,
       });
     } finally {
       setLoading(false);
@@ -83,7 +109,7 @@ export default function TouristFormModal({ isModalOpen, handleOk, handleCancel }
               htmlType="submit"
               className="flex h-[44px] items-center justify-center opacity-90 hover:opacity-100 bg-[#6913D8] text-white hover:bg-[#F4F2FF] hover:text-[#6913D8] focus:bg-[#6913D8] focus:text-white rounded-full text-[16px] border-none mt-2 w-full !text-xs font-bold md:!h-[44px] md:!text-base"
             >
-              Submit
+              {id ? "Update" : "Create"}
             </Button>
           </Form.Item>
         </Form>
