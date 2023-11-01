@@ -34,7 +34,7 @@ export default function TouristDetailPage() {
               stroke-width="1.6"
             ></path>
           </svg>
-          Welcome to Detail <span className="text-primary">Tourist</span>
+          Profile <span className="text-primary">{data?.tourist_name}</span>
         </span>
       </h1>
       <Card className="text-center border-0">

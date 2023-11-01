@@ -19,7 +19,7 @@ export default function AppNavbar() {
   }
 
   return (
-    <div>
+    <div className="">
       <AppNavbarBanner />
       <Disclosure as="nav" className="bg-white shadow-md">
         {({ open }) => (

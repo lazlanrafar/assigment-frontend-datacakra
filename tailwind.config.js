@@ -5,6 +5,10 @@ export default {
     extend: {
       colors: {
         primary: "#782add",
+        neutral: {
+          5: "#fbfafa",
+          10: "#f4f4f4",
+        },
       },
     },
     container: {
