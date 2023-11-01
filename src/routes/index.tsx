@@ -1,5 +1,5 @@
 import { Navigate, Outlet, Route, Routes } from "react-router-dom";
-import { HomePage, LoginPage } from "../pages";
+import { HomePage, LoginPage, TouristDetailPage } from "../pages";
 import RegisterPage from "../pages/auth/register";
 import Cookies from "js-cookie";
 
@@ -23,6 +23,7 @@ export default function Router() {
 
       <Route element={<PrivateRoutes />}>
         <Route path="/" element={<HomePage />} />
+        <Route path="/tourist/:id" element={<TouristDetailPage />} />
       </Route>
     </Routes>
   );

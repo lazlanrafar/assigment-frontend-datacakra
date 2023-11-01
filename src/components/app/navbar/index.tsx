@@ -4,10 +4,11 @@ import { CloseOutlined, MenuOutlined } from "@ant-design/icons";
 import AppNavbarMenuProfile from "./menu-profile";
 import AppNavbarBanner from "./banner";
 import { Logo } from "../../../assets";
+import { Link } from "react-router-dom";
 
 export default function AppNavbar() {
   const navigation = [
-    { name: "Dashboard", href: "#", current: true },
+    { name: "Dashboard", href: "/", current: true },
     { name: "Team", href: "#", current: false },
     { name: "Projects", href: "#", current: false },
     { name: "Calendar", href: "#", current: false },
@@ -39,14 +40,16 @@ export default function AppNavbar() {
                 </div>
                 <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                   <div className="flex flex-shrink-0 items-center">
-                    <img className="h-6 w-auto" src={Logo} alt="Logo" />
+                    <Link to="/">
+                      <img className="h-6 w-auto" src={Logo} alt="Logo" />
+                    </Link>
                   </div>
                   <div className="hidden sm:ml-6 sm:block">
                     <div className="flex space-x-4">
                       {navigation.map((item) => (
-                        <a
+                        <Link
                           key={item.name}
-                          href={item.href}
+                          to={item.href}
                           className={classNames(
                             item.current
                               ? "text-primary underline  font-semibold"
@@ -56,7 +59,7 @@ export default function AppNavbar() {
                           aria-current={item.current ? "page" : undefined}
                         >
                           {item.name}
-                        </a>
+                        </Link>
                       ))}
                     </div>
                   </div>

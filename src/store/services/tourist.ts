@@ -16,7 +16,10 @@ export const touristApi = createApi({
     GetAllTourist: builds.query({
       query: (params) => `/Tourist?page=${params.page}`,
     }),
+    GetTouristById: builds.query({
+      query: (id) => `/Tourist/${id}`,
+    }),
   }),
 });
 
-export const { useGetAllTouristQuery } = touristApi;
+export const { useGetAllTouristQuery, useGetTouristByIdQuery } = touristApi;
