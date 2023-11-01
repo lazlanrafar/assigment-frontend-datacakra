@@ -1,14 +1,17 @@
 import LayoutApp from "../../layouts/app.layout";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useGetAllTouristQuery } from "../../store/services/tourist";
 import { Tourist } from "../../types";
 import { CardTourist } from "../../components/molecules";
+import { Pagination } from "antd";
 
 export default function HomePage() {
-  const [page] = useState<number>(1);
-  const { data } = useGetAllTouristQuery({ page });
+  const [page, setPage] = useState<number>(1);
+  const { data, refetch } = useGetAllTouristQuery({ page });
 
-  console.log(data);
+  useEffect(() => {
+    refetch();
+  }, [page, refetch]);
 
   return (
     <LayoutApp>
@@ -26,6 +29,19 @@ export default function HomePage() {
                 createdat={item.createdat}
               />
             ))}
+        </div>
+        <br />
+        <div className="flex justify-end">
+          <Pagination
+            defaultCurrent={page}
+            onChange={(page) => {
+              setPage(page);
+            }}
+            total={data?.totalrecord}
+            showSizeChanger={false}
+            showQuickJumper
+            showTotal={(total) => `Total ${total} items`}
+          />
         </div>
       </div>
     </LayoutApp>
