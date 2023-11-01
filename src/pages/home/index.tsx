@@ -4,17 +4,31 @@ import { useGetAllTouristQuery } from "../../store/services/tourist";
 import { Tourist } from "../../types";
 import { CardTourist } from "../../components/molecules";
 import { Pagination } from "antd";
+import { PlusOutlined } from "@ant-design/icons";
+import TouristForm from "../../components/organisms/tourist-form";
 
 export default function HomePage() {
   const [page, setPage] = useState<number>(1);
   const { data, refetch, isLoading, isFetching } = useGetAllTouristQuery({ page });
 
+  const [modal, setModal] = useState<boolean>(false);
+
   useEffect(() => {
     refetch();
   }, [page, refetch]);
 
+  const handleOpenModal = () => {
+    setModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setModal(false);
+  };
+
   return (
     <LayoutApp>
+      <TouristForm isModalOpen={modal} handleOk={handleOpenModal} handleCancel={handleCloseModal} />
+
       <div className="">
         <h1 className="relative mx-auto text-center text-xl font-bold leading-[130%] text-black md:text-[32px] mb-10">
           <span className="relative">
@@ -42,6 +56,12 @@ export default function HomePage() {
             Welcome to <span className="text-primary">Tourist</span>
           </span>
         </h1>
+        <div className="flex justify-end mb-5">
+          <button className="bg-primary text-white rounded py-2 px-4 text-sm" onClick={handleOpenModal}>
+            <PlusOutlined className="mr-1" />
+            Create Tourist
+          </button>
+        </div>
         <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
           {data &&
             data.data.map((item: Tourist) => (

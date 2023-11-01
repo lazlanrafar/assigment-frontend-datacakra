@@ -12,7 +12,7 @@ export default function AppFooter() {
           </a>
           <div className="flex flex-col gap-2.5">
             <span className="text-[11px] font-normal leading-[1.3] ">
-              Sign up to land your next job &amp; find your mentor
+              Sign up to join our community and get the latest update
             </span>
           </div>
         </div>

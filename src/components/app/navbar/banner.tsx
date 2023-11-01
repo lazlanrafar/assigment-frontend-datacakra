@@ -11,7 +11,7 @@ export default function AppNavbarBanner() {
           </div>
           <div className="hidden h-[1px] w-2 bg-white lg:block"></div>
           <div className="text-[11px] leading-[14.3px] text-white lg:text-xs lg:leading-[15.6px]">
-            Learn how we can help your business
+            Learn more about our <span className="font-bold">Travel Agent Program</span>
           </div>
         </div>
       </div>
